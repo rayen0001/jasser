@@ -1,0 +1,40 @@
+<ion-content [fullscreen]="true">
+  <div class="user-page wishlist-page">
+    <section class="page-head">
+      <h1>Wishlist</h1>
+      <p>Save items you want to keep for later.</p>
+    </section>
+
+    @if (!items.length) {
+      <section class="panel empty">Your wishlist is empty.</section>
+    }
+
+    @if (items.length) {
+      <section class="panel list-panel">
+        @for (item of items; track item.productId) {
+          <article class="wish-item">
+            <img [src]="getImageUrl(item.thumbnail)" [alt]="item.name" />
+            <div class="item-main">
+              <h3>{{ item.name }}</h3>
+              <p>{{ item.category }} • {{ item.ref }}</p>
+              <strong>${{ item.price.toFixed(2) }}</strong>
+            </div>
+
+            <div class="item-actions">
+              <ion-button fill="clear" (click)="moveToCart(item)">
+                <ion-icon [icon]="cartIcon"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" color="danger" (click)="remove(item.productId)">
+                <ion-icon [icon]="trashIcon"></ion-icon>
+              </ion-button>
+            </div>
+          </article>
+        }
+      </section>
+
+      <div class="actions-footer">
+        <button class="btn-ghost" type="button" (click)="clearWishlist()">Clear Wishlist</button>
+      </div>
+    }
+  </div>
+</ion-content>

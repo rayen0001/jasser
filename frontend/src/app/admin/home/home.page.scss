@@ -1,0 +1,28 @@
+.admin-layout {
+	min-height: 100%;
+	display: flex;
+	background: var(--ion-color-light, #f5f7fb);
+}
+
+.admin-sidebar {
+	flex: 0 0 auto;
+	background: var(--ion-background-color, #ffffff);
+	box-shadow: 0 0 0 1px var(--ion-color-step-150, rgba(15, 23, 42, 0.08));
+}
+
+.admin-main {
+	flex: 1;
+	min-width: 0;
+	padding: 20px;
+	color: var(--ion-text-color);
+}
+
+@media (max-width: 768px) {
+	.admin-layout {
+		flex-direction: column;
+	}
+
+	.admin-main {
+		padding: 12px;
+	}
+}

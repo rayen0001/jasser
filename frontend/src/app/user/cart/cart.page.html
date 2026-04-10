@@ -1,0 +1,104 @@
+<ion-content [fullscreen]="true">
+  <div class="user-page cart-page">
+    <section class="page-head">
+      <h1>Cart</h1>
+      <p>Review your selected items before checkout.</p>
+    </section>
+
+    @if (errorMessage) {
+      <section class="message error">{{ errorMessage }}</section>
+    }
+
+    @if (successMessage) {
+      <section class="message success">{{ successMessage }}</section>
+    }
+
+    @if (!items.length) {
+      <section class="panel empty">Your cart is empty.</section>
+    }
+
+    @if (items.length) {
+      <section class="panel items-panel">
+        @for (item of items; track item.productId) {
+          <article class="cart-item">
+            <img [src]="getImageUrl(item.thumbnail)" [alt]="item.name" />
+            <div class="item-main">
+              <h3>{{ item.name }}</h3>
+              <p>{{ item.ref }}</p>
+              <strong>${{ item.price.toFixed(2) }}</strong>
+            </div>
+
+            <div class="qty-controls">
+              <ion-button size="small" fill="clear" (click)="decrement(item.productId)">
+                <ion-icon [icon]="removeIcon"></ion-icon>
+              </ion-button>
+              <span>{{ item.quantity }}</span>
+              <ion-button size="small" fill="clear" (click)="increment(item.productId)">
+                <ion-icon [icon]="addIcon"></ion-icon>
+              </ion-button>
+            </div>
+
+            <ion-button fill="clear" color="danger" (click)="remove(item.productId)">
+              <ion-icon [icon]="trashIcon"></ion-icon>
+            </ion-button>
+          </article>
+        }
+      </section>
+
+      <section class="panel checkout-panel">
+        <h2>Checkout</h2>
+
+        <label>
+          Shipping Address
+          <textarea [(ngModel)]="shippingAddress" rows="3" placeholder="Enter shipping address"></textarea>
+        </label>
+
+        <div class="map-actions">
+          <button class="btn-ghost" type="button" (click)="openMapPicker()">Pick on map</button>
+          <button class="btn-ghost" type="button" (click)="useCurrentLocation()">Use current location</button>
+        </div>
+
+        @if (showMapPicker) {
+          <section class="map-picker-panel">
+            <div class="map-picker-head">
+              <h3>Select delivery point</h3>
+              <button class="btn-ghost small" type="button" (click)="closeMapPicker()">Close</button>
+            </div>
+
+            <div #mapContainer class="map-container"></div>
+
+            <p class="map-help">Tap the map or drag the pin to choose a delivery location.</p>
+
+            <p class="picked-location">
+              <strong>Selected:</strong>
+              {{ pickedLocationText || 'No location selected yet' }}
+            </p>
+
+            <div class="map-actions confirm-row">
+              <button class="btn-primary" type="button" (click)="usePickedLocation()">Use this location</button>
+            </div>
+          </section>
+        }
+
+        <label>
+          Payment Method
+          <select [(ngModel)]="paymentMethod">
+            <option value="cash">Cash</option>
+            <option value="card">Card</option>
+            <option value="transfer">Bank Transfer</option>
+          </select>
+        </label>
+
+        <div class="checkout-footer">
+          <p>Subtotal: <strong>${{ subtotal.toFixed(2) }}</strong></p>
+          <div class="actions">
+            <button class="btn-ghost" type="button" (click)="clearCart()">Clear Cart</button>
+            <button class="btn-primary" type="button" [disabled]="isPlacingOrder" (click)="placeOrder()">
+              {{ isPlacingOrder ? 'Placing Order...' : 'Place Order' }}
+            </button>
+          </div>
+        </div>
+      </section>
+    }
+  </div>
+</ion-content>

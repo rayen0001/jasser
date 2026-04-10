@@ -1,0 +1,63 @@
+<ion-content [fullscreen]="true">
+  <div class="admin-page orders-page">
+    <section class="page-header">
+      <h1>Orders</h1>
+      <p>Manage and track customer orders.</p>
+    </section>
+
+    @if (errorMessage) {
+      <section class="error-banner">
+        {{ errorMessage }}
+      </section>
+    }
+
+    @if (isLoading) {
+      <section class="table-panel loading-panel">
+        <p>Loading orders...</p>
+      </section>
+    }
+
+    @if (!isLoading && orders.length === 0) {
+      <section class="table-panel loading-panel">
+        <p>No orders found.</p>
+      </section>
+    }
+
+    @if (!isLoading && orders.length > 0) {
+      <section class="table-panel">
+      <div class="table-head">
+        <span>Order ID</span>
+        <span>Customer</span>
+        <span>Items</span>
+        <span>Status</span>
+        <span>Total</span>
+        <span>Action</span>
+      </div>
+
+      @for (order of orders; track order._id) {
+        <div class="table-row">
+          <span>#{{ order._id.slice(-6) }}</span>
+          <span>{{ order.userId.firstname }} {{ order.userId.lastname }}</span>
+          <span>{{ order.items.length }}</span>
+          <span>
+            <span class="badge" [class.pending]="order.status === 'pending'" [class.processing]="order.status === 'processing'" [class.shipped]="order.status === 'shipped'" [class.delivered]="order.status === 'delivered'" [class.cancelled]="order.status === 'cancelled'">
+              {{ order.status }}
+            </span>
+          </span>
+          <span>${{ order.totalAmount.toFixed(2) }}</span>
+          <span class="status-actions">
+            <select #statusSel [value]="order.status">
+              @for (status of statuses; track status) {
+                <option [value]="status">{{ status }}</option>
+              }
+            </select>
+            <button type="button" (click)="updateStatus(order, statusSel.value)" [disabled]="savingOrderId === order._id">
+              {{ savingOrderId === order._id ? 'Saving...' : 'Update' }}
+            </button>
+          </span>
+        </div>
+      }
+      </section>
+    }
+  </div>
+</ion-content>

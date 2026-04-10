@@ -1,0 +1,133 @@
+.details-page {
+	padding: 16px 14px 100px;
+}
+
+.state-panel {
+	border: 1px solid var(--ion-color-step-150, #dce3ef);
+	background: var(--ion-background-color);
+	border-radius: 12px;
+	padding: 16px;
+	color: var(--ion-color-medium);
+}
+
+.state-panel.error {
+	background: rgba(220, 38, 38, 0.08);
+	border-color: rgba(220, 38, 38, 0.35);
+	color: #dc2626;
+}
+
+.details-card {
+	background: var(--ion-background-color);
+	border: 1px solid var(--ion-color-step-150, #dce3ef);
+	border-radius: 18px;
+	overflow: hidden;
+}
+
+.hero-image {
+	width: 100%;
+	height: 280px;
+	object-fit: cover;
+	display: block;
+}
+
+.details-body {
+	padding: 16px;
+}
+
+.eyebrow {
+	margin: 0 0 6px;
+	font-size: 0.8rem;
+	color: var(--ion-color-medium);
+}
+
+.details-body h1 {
+	margin: 0;
+	font-size: 1.5rem;
+}
+
+.desc {
+	margin: 10px 0 0;
+	color: var(--ion-color-medium);
+	line-height: 1.6;
+}
+
+.price-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin: 14px 0;
+}
+
+.price {
+	font-size: 1.4rem;
+	font-weight: 800;
+}
+
+.old-price {
+	text-decoration: line-through;
+	color: var(--ion-color-medium);
+}
+
+.discount {
+	font-size: 0.75rem;
+	font-weight: 700;
+	padding: 3px 8px;
+	border-radius: 999px;
+	background: rgba(16, 185, 129, 0.14);
+	color: #10b981;
+}
+
+.meta-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 10px;
+	margin-bottom: 14px;
+}
+
+.meta-grid div {
+	padding: 12px;
+	border-radius: 12px;
+	background: rgba(148, 163, 184, 0.08);
+}
+
+.meta-grid span {
+	display: block;
+	font-size: 0.75rem;
+	color: var(--ion-color-medium);
+	margin-bottom: 4px;
+}
+
+.meta-grid strong {
+	font-size: 0.92rem;
+}
+
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+	gap: 8px;
+	margin: 14px 0;
+}
+
+.gallery img {
+	width: 100%;
+	height: 90px;
+	object-fit: cover;
+	border-radius: 10px;
+}
+
+.actions {
+	display: grid;
+	gap: 10px;
+	margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+	.hero-image {
+		height: 220px;
+	}
+
+	.meta-grid {
+		grid-template-columns: 1fr;
+	}
+}

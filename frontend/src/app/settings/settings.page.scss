@@ -1,0 +1,65 @@
+.settings-wrapper {
+	max-width: 680px;
+	margin: 0 auto;
+	padding: 16px;
+}
+
+.settings-list {
+	margin-bottom: 16px;
+	border-radius: 14px;
+	overflow: hidden;
+}
+
+.preview-card {
+	margin: 12px 4px 20px;
+	padding: 14px 16px;
+	border-radius: 14px;
+	background: var(--ion-color-light-shade);
+	border: 1px solid var(--ion-color-step-150, #e2e2e2);
+}
+
+.preview-card h2 {
+	margin: 0 0 10px;
+	font-size: 1rem;
+	font-weight: 700;
+}
+
+.preview-card p {
+	margin: 6px 0;
+	color: var(--ion-color-medium-shade);
+}
+
+.save-btn {
+	--border-radius: 12px;
+	--padding-top: 14px;
+	--padding-bottom: 14px;
+	font-weight: 600;
+}
+
+.fi {
+	margin-right: 8px;
+	vertical-align: middle;
+}
+
+.language-value {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 500;
+}
+
+.theme-toggle {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.theme-toggle ion-icon {
+	font-size: 1.1rem;
+	color: var(--ion-color-medium);
+	transition: color 0.2s ease;
+}
+
+.theme-toggle ion-icon.active {
+	color: var(--ion-color-primary);
+}

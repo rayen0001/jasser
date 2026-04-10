@@ -1,0 +1,32 @@
+<ion-tabs class="user-shell">
+  <ion-router-outlet></ion-router-outlet>
+
+  <ion-tab-bar slot="bottom" class="user-tab-bar">
+
+    <ion-tab-button tab="cart" [routerLink]="['/user/cart']" routerDirection="root">
+      <ion-icon [icon]="cartIcon"></ion-icon>
+      <ion-label>Cart</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="wishlist" [routerLink]="['/user/wishlist']" routerDirection="root">
+      <ion-icon [icon]="wishlistIcon"></ion-icon>
+      <ion-label>Wishlist</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="shop" [routerLink]="['/user/shop']" routerDirection="root">
+      <ion-icon [icon]="shopIcon"></ion-icon>
+      <ion-label>Shop</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="orders" [routerLink]="['/user/orders']" routerDirection="root">
+      <ion-icon [icon]="ordersIcon"></ion-icon>
+      <ion-label>Orders</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile" [routerLink]="['/user/profile']" routerDirection="root">
+      <ion-icon [icon]="profileIcon"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-tabs>

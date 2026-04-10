@@ -1,0 +1,55 @@
+<ion-content [fullscreen]="true">
+  <div class="orders-page">
+    <section class="page-head">
+      <h1>Orders</h1>
+      <p>Your order history.</p>
+    </section>
+
+    @if (errorMessage) {
+      <section class="state-panel error">{{ errorMessage }}</section>
+    }
+
+    @if (isLoading) {
+      <section class="state-panel">Loading orders...</section>
+    }
+
+    @if (!isLoading && orders.length === 0) {
+      <section class="state-panel">No orders found.</section>
+    }
+
+    @if (!isLoading && orders.length > 0) {
+      <section class="orders-list">
+        @for (order of orders; track order._id) {
+          <article class="order-card">
+            <header>
+              <h2>Order #{{ order._id.slice(-8).toUpperCase() }}</h2>
+              <span class="status" [class]="'status ' + getStatusClass(order.status)">{{ order.status }}</span>
+            </header>
+
+            <p class="meta">
+              {{ order.createdAt | date:'medium' }} • {{ order.paymentMethod }} • {{ order.shippingAddress }}
+            </p>
+
+            <div class="items">
+              @for (item of order.items; track item.productId._id) {
+                <div class="order-item">
+                  <img [src]="getImageUrl(item.productId.thumbnail)" [alt]="item.productId.name" />
+                  <div>
+                    <h3>{{ item.productId.name }}</h3>
+                    <p>{{ item.productId.ref }}</p>
+                  </div>
+                  <span>x{{ item.quantity }}</span>
+                  <strong>${{ item.price.toFixed(2) }}</strong>
+                </div>
+              }
+            </div>
+
+            <footer>
+              <strong>Total: ${{ order.totalAmount.toFixed(2) }}</strong>
+            </footer>
+          </article>
+        }
+      </section>
+    }
+  </div>
+</ion-content>

@@ -1,0 +1,42 @@
+<div class="sidebar-shell" [class.collapsed]="isCollapsed">
+  <div class="sidebar-header">
+    @if (!isCollapsed) {
+      <h2>Admin Menu</h2>
+    }
+    <ion-button fill="clear" size="small" (click)="toggleSidebar()" aria-label="Toggle sidebar">
+      <ion-icon [icon]="isCollapsed ? expandIcon : collapseIcon"></ion-icon>
+    </ion-button>
+  </div>
+
+  <ion-list class="nav-list">
+    @for (item of navItems; track item.route) {
+      <ion-item
+        class="nav-item"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <ion-icon slot="start" [icon]="item.icon"></ion-icon>
+        @if (!isCollapsed) {
+          <ion-label>{{ item.label }}</ion-label>
+        }
+      </ion-item>
+    }
+  </ion-list>
+
+  <div class="sidebar-bottom-actions">
+    <ion-button class="bottom-action-btn" fill="clear" routerLink="/settings">
+      <ion-icon slot="start" [icon]="settingsIcon"></ion-icon>
+      @if (!isCollapsed) {
+        <span>Settings</span>
+      }
+    </ion-button>
+
+    <ion-button class="bottom-action-btn logout-btn" fill="clear" (click)="logout()">
+      <ion-icon slot="start" [icon]="logoutIcon"></ion-icon>
+      @if (!isCollapsed) {
+        <span>Logout</span>
+      }
+    </ion-button>
+  </div>
+</div>

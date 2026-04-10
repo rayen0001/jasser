@@ -1,0 +1,77 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Welcome</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <h1>{{ mode === 'login' ? 'Sign in' : 'Create account' }}</h1>
+      <p>Access your account to continue shopping.</p>
+
+      <ion-segment [value]="mode" (ionChange)="setMode($event.detail.value)">
+        <ion-segment-button value="login">
+          <ion-label>Login</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="signup">
+          <ion-label>Sign up</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      @if (errorMessage) {
+        <ion-text color="danger" class="error-text">{{ errorMessage }}</ion-text>
+      }
+
+      @if (mode === 'login') {
+        <div class="form-block">
+          <ion-item>
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input type="email" [(ngModel)]="loginForm.email" placeholder="you@example.com"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Password</ion-label>
+            <ion-input type="password" [(ngModel)]="loginForm.password" placeholder="Your password"></ion-input>
+          </ion-item>
+        </div>
+      } @else {
+        <div class="form-block">
+          <ion-item>
+            <ion-label position="stacked">Username</ion-label>
+            <ion-input [(ngModel)]="signupForm.username" placeholder="username"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">First Name</ion-label>
+            <ion-input [(ngModel)]="signupForm.firstname" placeholder="First name"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Last Name</ion-label>
+            <ion-input [(ngModel)]="signupForm.lastname" placeholder="Last name"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input type="email" [(ngModel)]="signupForm.email" placeholder="you@example.com"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Password</ion-label>
+            <ion-input type="password" [(ngModel)]="signupForm.password" placeholder="At least 6 characters"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Confirm Password</ion-label>
+            <ion-input type="password" [(ngModel)]="signupForm.confirmPassword" placeholder="Repeat password"></ion-input>
+          </ion-item>
+        </div>
+      }
+
+      <ion-button expand="block" [disabled]="isLoading" (click)="submit()" class="submit-btn">
+        {{ isLoading ? 'Please wait...' : (mode === 'login' ? 'Login' : 'Create account') }}
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,66 @@
+<ion-content [fullscreen]="true">
+  <div class="admin-page dashboard-page">
+    <section class="page-header">
+      <h1>Dashboard</h1>
+      <p>Overview of your store performance.</p>
+    </section>
+
+    @if (errorMessage) {
+      <section class="panel error-panel">
+        <p>{{ errorMessage }}</p>
+      </section>
+    }
+
+    <section class="stats-grid">
+      <article class="stat-card">
+        <h3>Total Orders</h3>
+        <p>{{ orderStats.totalOrders }}</p>
+      </article>
+      <article class="stat-card">
+        <h3>Total Revenue</h3>
+        <p>${{ orderStats.totalRevenue.toFixed(2) }}</p>
+      </article>
+      <article class="stat-card">
+        <h3>Products</h3>
+        <p>{{ productCount }}</p>
+      </article>
+      <article class="stat-card">
+        <h3>Pending Orders</h3>
+        <p>{{ orderStats.statusCounts.pending || 0 }}</p>
+      </article>
+      <article class="stat-card">
+        <h3>Average Order Value</h3>
+        <p>${{ orderStats.averageOrderValue.toFixed(2) }}</p>
+      </article>
+      <article class="stat-card">
+        <h3>Total Feedbacks</h3>
+        <p>{{ feedbackStats.totalFeedbacks }}</p>
+      </article>
+      <article class="stat-card">
+        <h3>Average Rate</h3>
+        <p>{{ feedbackStats.averageRate.toFixed(1) }}</p>
+      </article>
+      <article class="stat-card">
+        <h3>Helpful Votes</h3>
+        <p>{{ feedbackStats.totalHelpful }}</p>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Order Status Breakdown</h2>
+      <ul>
+        <li>Pending: {{ orderStats.statusCounts.pending || 0 }}</li>
+        <li>Processing: {{ orderStats.statusCounts.processing || 0 }}</li>
+        <li>Shipped: {{ orderStats.statusCounts.shipped || 0 }}</li>
+        <li>Delivered: {{ orderStats.statusCounts.delivered || 0 }}</li>
+        <li>Cancelled: {{ orderStats.statusCounts.cancelled || 0 }}</li>
+      </ul>
+    </section>
+
+    @if (isLoading) {
+      <section class="panel loading-panel">
+        <p>Loading latest stats...</p>
+      </section>
+    }
+  </div>
+</ion-content>

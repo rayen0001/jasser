@@ -1,0 +1,74 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="details-page">
+    @if (errorMessage) {
+      <section class="state-panel error">{{ errorMessage }}</section>
+    }
+
+    @if (isLoading) {
+      <section class="state-panel">Loading product...</section>
+    }
+
+    @if (!isLoading && product) {
+      <article class="details-card">
+        <img class="hero-image" [src]="getImageUrl(product.thumbnail)" [alt]="product.name" />
+
+        <div class="details-body">
+          <p class="eyebrow">{{ product.category }} • {{ product.ref }}</p>
+          <h1>{{ product.name }}</h1>
+
+          <p class="desc">{{ product.desc }}</p>
+
+          <div class="price-row">
+            <span class="price">${{ getDiscountedPrice(product).toFixed(2) }}</span>
+            @if (product.remisComposerd.enabled) {
+              <span class="old-price">${{ product.price.toFixed(2) }}</span>
+              <span class="discount">-{{ product.remisComposerd.percentage }}%</span>
+            }
+          </div>
+
+          <div class="meta-grid">
+            <div>
+              <span>Stock</span>
+              <strong>{{ product.stock }}</strong>
+            </div>
+            <div>
+              <span>Created</span>
+              <strong>{{ product.createdAt | date:'mediumDate' }}</strong>
+            </div>
+            <div>
+              <span>Rating</span>
+              <strong>{{ product.averageRate || 0 }}/5</strong>
+            </div>
+          </div>
+
+          @if (product.images?.length) {
+            <section class="gallery">
+              @for (image of product.images; track image) {
+                <img [src]="getImageUrl(image)" [alt]="product.name" />
+              }
+            </section>
+          }
+
+          <div class="actions">
+            <ion-button expand="block" (click)="addToCart()">
+              <ion-icon slot="start" [icon]="cartIcon"></ion-icon>
+              Add to Cart
+            </ion-button>
+            <ion-button expand="block" fill="outline" (click)="addToWishlist()">
+              <ion-icon slot="start" [icon]="wishlistIcon"></ion-icon>
+              Add to Wishlist
+            </ion-button>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+</ion-content>
+

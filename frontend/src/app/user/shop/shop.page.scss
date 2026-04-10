@@ -1,0 +1,141 @@
+.shop-page {
+	position: relative;
+	padding: 16px 14px 96px;
+	z-index: 2;
+}
+
+.page-head h1 {
+	margin: 0;
+	font-size: 1.4rem;
+}
+
+.page-head p {
+	margin: 4px 0 14px;
+	color: var(--ion-color-medium);
+}
+
+.state-panel {
+	border: 1px solid var(--ion-color-step-150, #dce3ef);
+	background: var(--ion-background-color);
+	border-radius: 12px;
+	padding: 16px;
+	color: var(--ion-color-medium);
+}
+
+.state-panel.error {
+	background: rgba(220, 38, 38, 0.08);
+	border-color: rgba(220, 38, 38, 0.35);
+	color: #dc2626;
+}
+
+.cards-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+}
+
+ion-card {
+	margin: 0;
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+ion-card img {
+	width: 100%;
+	height: 170px;
+	object-fit: cover;
+}
+
+ion-card-title {
+	font-size: 1rem;
+}
+
+.desc {
+	margin: 0;
+	color: var(--ion-color-medium);
+	min-height: 38px;
+}
+
+.price-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 10px 0 6px;
+}
+
+.price {
+	font-size: 1rem;
+	font-weight: 700;
+}
+
+.old-price {
+	font-size: 0.86rem;
+	text-decoration: line-through;
+	color: var(--ion-color-medium);
+}
+
+.discount {
+	font-size: 0.76rem;
+	font-weight: 700;
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: rgba(16, 185, 129, 0.14);
+	color: #10b981;
+}
+
+.stock {
+	margin: 0;
+	font-size: 0.82rem;
+	color: var(--ion-color-medium);
+}
+
+.card-actions {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 4px;
+	padding: 0 12px 10px;
+	position: relative;
+	z-index: 3;
+	pointer-events: auto;
+}
+
+.text-action {
+	border: none;
+	background: transparent;
+	color: var(--ion-color-primary);
+	font-size: 0.82rem;
+	font-weight: 700;
+	cursor: pointer;
+	padding: 0 6px;
+	height: 40px;
+	pointer-events: auto;
+}
+
+.icon-action {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border: none;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--ion-color-primary);
+	cursor: pointer;
+	pointer-events: auto;
+}
+
+.icon-action ion-icon {
+	font-size: 1.35rem;
+}
+
+.icon-action:active {
+	transform: scale(0.95);
+}
+
+@media (max-width: 620px) {
+	.cards-grid {
+		grid-template-columns: 1fr;
+	}
+}

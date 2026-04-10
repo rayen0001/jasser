@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true">
+  <div class="shop-page">
+    <section class="page-head">
+      <h1>Shop</h1>
+      <p>Discover products and add them to your cart or wishlist.</p>
+    </section>
+
+    @if (errorMessage) {
+      <section class="state-panel error">{{ errorMessage }}</section>
+    }
+
+    @if (isLoading) {
+      <section class="state-panel">Loading products...</section>
+    }
+
+    @if (!isLoading && products.length === 0) {
+      <section class="state-panel">No products found.</section>
+    }
+
+    @if (!isLoading && products.length > 0) {
+      <section class="cards-grid">
+        @for (product of products; track product._id) {
+          <ion-card>
+            <img [alt]="product.name" [src]="getImageUrl(product.thumbnail)" />
+            <ion-card-header>
+              <ion-card-title>{{ product.name }}</ion-card-title>
+              <ion-card-subtitle>{{ product.category }} • {{ product.ref }}</ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+              <p class="desc">{{ product.desc }}</p>
+              <p class="price-row">
+                <span class="price">${{ getDiscountedPrice(product).toFixed(2) }}</span>
+                @if (product.remisComposerd.enabled) {
+                  <span class="old-price">${{ product.price.toFixed(2) }}</span>
+                  <span class="discount">-{{ product.remisComposerd.percentage }}%</span>
+                }
+              </p>
+              <p class="stock">Stock: {{ product.stock }}</p>
+            </ion-card-content>
+
+            <div class="card-actions">
+              <button class="text-action" type="button" (click)="goToProductDetails(product._id)">
+                View
+              </button>
+              <button class="icon-action" type="button" (click)="addToCart(product); $event.stopPropagation()">
+                <ion-icon [icon]="isInCart(product._id) ? filledCartIcon : cartIcon"></ion-icon>
+              </button>
+              <button class="icon-action" type="button" (click)="toggleWishlist(product); $event.stopPropagation()">
+                <ion-icon [icon]="isInWishlist(product._id) ? filledHeartIcon : wishlistIcon"></ion-icon>
+              </button>
+            </div>
+          </ion-card>
+        }
+      </section>
+    }
+  </div>
+</ion-content>

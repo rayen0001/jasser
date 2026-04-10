@@ -1,0 +1,91 @@
+.wishlist-page {
+	padding: 16px 14px 100px;
+}
+
+.page-head h1 {
+	margin: 0;
+	font-size: 1.35rem;
+}
+
+.page-head p {
+	margin: 4px 0 14px;
+	color: var(--ion-color-medium);
+}
+
+.panel {
+	background: var(--ion-background-color);
+	border: 1px solid var(--ion-color-step-150, #dce3ef);
+	border-radius: 12px;
+	padding: 14px;
+}
+
+.empty {
+	color: var(--ion-color-medium);
+}
+
+.wish-item {
+	display: grid;
+	grid-template-columns: 68px 1fr auto;
+	gap: 10px;
+	align-items: center;
+	padding: 10px 0;
+	border-top: 1px solid var(--ion-color-step-100, #edf1f7);
+}
+
+.wish-item:first-child {
+	border-top: none;
+	padding-top: 0;
+}
+
+.wish-item img {
+	width: 68px;
+	height: 68px;
+	border-radius: 10px;
+	object-fit: cover;
+}
+
+.item-main h3 {
+	margin: 0;
+	font-size: 0.95rem;
+}
+
+.item-main p {
+	margin: 3px 0;
+	font-size: 0.8rem;
+	color: var(--ion-color-medium);
+}
+
+.item-main strong {
+	font-size: 0.9rem;
+}
+
+.item-actions {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.actions-footer {
+	margin-top: 12px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.btn-ghost {
+	border-radius: 10px;
+	padding: 9px 12px;
+	border: 1px solid var(--ion-color-step-250, #cbd5e1);
+	background: transparent;
+	color: var(--ion-text-color);
+	font-weight: 600;
+}
+
+@media (max-width: 640px) {
+	.wish-item {
+		grid-template-columns: 56px 1fr;
+	}
+
+	.item-actions {
+		grid-column: 1 / -1;
+	}
+}
