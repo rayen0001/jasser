@@ -12,14 +12,14 @@ export class Feedbacks {
 
   create(payload: CreateFeedbackPayload): Observable<{ feedback: Feedback }> {
     return this.http.post<{ feedback: Feedback }>(
-      `${this.BASE_URL}/feedback`,
+      `${this.BASE_URL}/feedbacks`,
       payload
     );
   }
 
   getPerProduct(productId: string): Observable<{ feedbacks: Feedback[] }> {
     return this.http.get<{ feedbacks: Feedback[] }>(
-      `${this.BASE_URL}/feedback/product/${productId}`
+      `${this.BASE_URL}/feedbacks/product/${productId}`
     );
   }
 
@@ -31,7 +31,7 @@ export class Feedbacks {
 
   statsPerProduct(productId: string): Observable<{ stats: ProductStats }> {
     return this.http.get<{ stats: ProductStats }>(
-      `${this.BASE_URL}/feedback/stats/${productId}`
+      `${this.BASE_URL}/feedbacks/stats/product/${productId}`
     );
   }
 }

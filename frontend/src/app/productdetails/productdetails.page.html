@@ -68,6 +68,141 @@
           </div>
         </div>
       </article>
+
+      <section class="feedback-section">
+        <div class="feedback-summary">
+          <div>
+            <p class="section-label">Feedback</p>
+            <h2>What customers say</h2>
+          </div>
+
+          <div class="summary-pill">
+            <ion-icon [icon]="starIcon"></ion-icon>
+            <strong>{{ getAverageRating() }}</strong>
+            <span>Average</span>
+          </div>
+        </div>
+
+        <div class="feedback-stats" *ngIf="feedbackStats as stats">
+          <div class="stat-box">
+            <span>Total feedbacks</span>
+            <strong>{{ stats.totalFeedbacks }}</strong>
+          </div>
+          <div class="stat-box">
+            <span>Helpful</span>
+            <strong>{{ stats.totalHelpful }}</strong>
+          </div>
+          <div class="stat-box">
+            <span>Unhelpful</span>
+            <strong>{{ stats.totalUnhelpful }}</strong>
+          </div>
+        </div>
+
+        <ion-card class="feedback-form-card">
+          <ion-card-header>
+            <ion-card-title>Post feedback</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            @if (!currentUser) {
+              <ion-text color="medium">Sign in to share your review.</ion-text>
+            } @else {
+              <ion-item lines="none" class="rating-item">
+                <ion-label>
+                  Rating
+                  <span class="rating-value">{{ feedbackForm.rating }}/5</span>
+                </ion-label>
+                <ion-range
+                  [(ngModel)]="feedbackForm.rating"
+                  name="rating"
+                  min="1"
+                  max="5"
+                  step="1"
+                  snaps="true"
+                  ticks="true"
+                  pin="true"
+                ></ion-range>
+              </ion-item>
+
+              <ion-item lines="none">
+                <ion-label position="stacked">Comment</ion-label>
+                <ion-textarea
+                  [(ngModel)]="feedbackForm.comment"
+                  name="comment"
+                  autoGrow="true"
+                  placeholder="Tell others about the product"
+                ></ion-textarea>
+              </ion-item>
+
+              @if (feedbackError) {
+                <p class="feedback-message error">{{ feedbackError }}</p>
+              }
+              @if (feedbackSuccess) {
+                <p class="feedback-message success">{{ feedbackSuccess }}</p>
+              }
+
+              <ion-button expand="block" (click)="submitFeedback()" [disabled]="feedbackLoading">
+                <ion-spinner slot="start" name="crescent" *ngIf="feedbackLoading"></ion-spinner>
+                Submit feedback
+              </ion-button>
+            }
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="feedback-list-card">
+          <ion-card-header>
+            <ion-card-title>Recent feedback</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            @if (feedbackLoading && !feedbacks.length) {
+              <div class="feedback-empty">
+                <ion-spinner name="crescent"></ion-spinner>
+                <p>Loading feedback...</p>
+              </div>
+            } @else if (!feedbacks.length) {
+              <div class="feedback-empty">
+                <ion-icon [icon]="feedbackEmptyIcon"></ion-icon>
+                <p>No feedback yet. Be the first to review this product.</p>
+              </div>
+            } @else {
+              <ion-list lines="none" class="feedback-list">
+                @for (feedback of feedbacks; track feedback._id) {
+                  <ion-item class="feedback-item">
+                    <ion-avatar slot="start">
+                      <img [src]="getUserAvatar(feedback.userId)" [alt]="getReviewerName(feedback)" />
+                    </ion-avatar>
+
+                    <div class="feedback-content">
+                      <div class="feedback-header">
+                        <div>
+                          <strong>{{ getReviewerName(feedback) }}</strong>
+                          <p>{{ feedback.createdAt | date:'mediumDate' }}</p>
+                        </div>
+
+                        <div class="feedback-rating">
+                          @for (ratingStar of ratingIcons; track ratingStar) {
+                            <ion-icon
+                              [icon]="isStarFilled(ratingStar, feedback.rating) ? starIcon : starOutlineIcon"
+                            ></ion-icon>
+                          }
+                        </div>
+                      </div>
+
+                      @if (feedback.comment) {
+                        <p class="feedback-comment">{{ feedback.comment }}</p>
+                      }
+
+                      <div class="feedback-meta">
+                        <span>Helpful {{ feedback.helpful || 0 }}</span>
+                        <span>Unhelpful {{ feedback.unhelpful || 0 }}</span>
+                      </div>
+                    </div>
+                  </ion-item>
+                }
+              </ion-list>
+            }
+          </ion-card-content>
+        </ion-card>
+      </section>
     }
   </div>
 </ion-content>

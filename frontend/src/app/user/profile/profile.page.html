@@ -1,6 +1,151 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/user/shop"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="end">
+    <ion-button class="bottom-action-btn" fill="clear" routerLink="/settings">
+      <ion-icon slot="start" [icon]="settingsIcon"></ion-icon>
+    </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
-  <div class="user-page">
-    <h1>Profile</h1>
-    <p>Manage your account details and settings.</p>
+  <div class="profile-shell">
+    <section class="hero-panel">
+      <div class="hero-copy">
+        <p class="eyebrow">Profile setup</p>
+        <h1>{{ displayName }}</h1>
+        <p class="hero-text">
+          Keep your account details current and use a free DiceBear avatar that stays in sync with your profile.
+        </p>
+
+        <div class="meta-row" *ngIf="profile">
+          <span class="meta-pill">Role: {{ profile.role }}</span>
+          <span class="meta-pill">Created: {{ createdAtLabel }}</span>
+        </div>
+      </div>
+
+      <div class="avatar-panel">
+        <div class="avatar-frame">
+          <img [src]="avatarUrl" [alt]="displayName + ' avatar'" referrerpolicy="no-referrer" />
+        </div>
+
+        <div class="avatar-actions">
+          <ion-button size="small" fill="outline" (click)="randomizeAvatar()">Randomize avatar</ion-button>
+          <ion-button size="small" fill="clear" (click)="useNameSeed()">Use profile name</ion-button>
+        </div>
+
+        <ion-text color="medium" class="avatar-note">Generated with DiceBear</ion-text>
+      </div>
+    </section>
+
+    <div class="state-card" *ngIf="isLoading">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Loading profile...</p>
+    </div>
+
+    <ng-container *ngIf="!isLoading">
+      <div class="state-card error-card" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="state-card success-card" *ngIf="successMessage">{{ successMessage }}</div>
+
+      <form class="profile-grid" (ngSubmit)="saveProfile()">
+        <ion-card class="form-card">
+          <ion-card-header>
+            <ion-card-title>Personal details</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-label position="stacked">Username</ion-label>
+              <ion-input [(ngModel)]="form.username" name="username" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">First name</ion-label>
+              <ion-input [(ngModel)]="form.firstname" name="firstname" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Last name</ion-label>
+              <ion-input [(ngModel)]="form.lastname" name="lastname" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Email</ion-label>
+              <ion-input [(ngModel)]="form.email" name="email" type="email" required></ion-input>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="form-card">
+          <ion-card-header>
+            <ion-card-title>Account details</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-label position="stacked">Birthday</ion-label>
+              <ion-input [(ngModel)]="form.birthday" name="birthday" type="date"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Phone</ion-label>
+              <ion-input [(ngModel)]="form.phone" name="phone" type="tel"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Gender</ion-label>
+              <ion-select [(ngModel)]="form.gender" name="gender" interface="popover" placeholder="Select gender">
+                <ion-select-option *ngFor="let option of genderOptions" [value]="option.value">
+                  {{ option.label }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item lines="none" class="style-item">
+              <ion-label position="stacked">Avatar style</ion-label>
+              <ion-select [(ngModel)]="avatarStyle" name="avatarStyle" interface="popover">
+                <ion-select-option *ngFor="let option of avatarStyles" [value]="option.value">
+                  {{ option.label }}
+                </ion-select-option>
+              </ion-select>
+              <ion-note>Choose a free DiceBear style for your avatar.</ion-note>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="form-card summary-card">
+          <ion-card-header>
+            <ion-card-title>Profile summary</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="summary-row">
+              <span>Username</span>
+              <strong>{{ form.username || '-' }}</strong>
+            </div>
+            <div class="summary-row">
+              <span>Email</span>
+              <strong>{{ form.email || '-' }}</strong>
+            </div>
+            <div class="summary-row">
+              <span>Birthday</span>
+              <strong>{{ form.birthday || '-' }}</strong>
+            </div>
+            <div class="summary-row">
+              <span>Avatar seed</span>
+              <strong>{{ avatarSeed || defaultAvatarSeed }}</strong>
+            </div>
+
+            <div class="save-actions">
+              <ion-button expand="block" type="submit" [disabled]="isSaving">
+                <ion-spinner slot="start" name="crescent" *ngIf="isSaving"></ion-spinner>
+                Save profile
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </form>
+    </ng-container>
   </div>
 </ion-content>

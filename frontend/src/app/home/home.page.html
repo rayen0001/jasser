@@ -1,20 +1,120 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="landing-header">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <div class="topbar">
+      <div class="brand">
+        <ion-icon [icon]="bagIcon"></ion-icon>
+        <span>Jesser Shop</span>
+      </div>
+
+      <ion-button fill="solid" color="dark" routerLink="/auth" class="auth-btn">
+        Join now
+      </ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="landing-content">
+  <main class="landing-shell">
+    <section class="hero">
+      <p class="eyebrow">New season drop</p>
+      <h1>
+        Style, tech, and home picks
+        <span>in one bold marketplace.</span>
+      </h1>
+      <p class="hero-copy">
+        Discover curated collections, lightning-fast checkout, and trusted quality from brands people love.
+      </p>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+      <div class="hero-cta">
+        <ion-button size="large" routerLink="/auth">
+          Start shopping
+          <ion-icon slot="end" [icon]="arrowIcon"></ion-icon>
+        </ion-button>
+        <ion-button size="large" fill="outline" routerLink="/auth">
+          Create account
+        </ion-button>
+      </div>
+
+      <div class="hero-metrics">
+        <article>
+          <strong>12k+</strong>
+          <p>Products curated</p>
+        </article>
+        <article>
+          <strong>98%</strong>
+          <p>Happy shoppers</p>
+        </article>
+        <article>
+          <strong>24/7</strong>
+          <p>Order tracking</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="visual-card">
+      <div class="badge-pill">
+        <ion-icon [icon]="sparklesIcon"></ion-icon>
+        Trending now
+      </div>
+      <h2>Weekly highlights</h2>
+      <ul>
+        <li>
+          <span>Streetwear essentials</span>
+          <b>Up to 35% off</b>
+        </li>
+        <li>
+          <span>Wireless audio</span>
+          <b>New arrivals</b>
+        </li>
+        <li>
+          <span>Smart home bundles</span>
+          <b>Limited stock</b>
+        </li>
+      </ul>
+      <ion-button expand="block" routerLink="/auth" fill="solid" color="dark">
+        Unlock member deals
+      </ion-button>
+    </section>
+
+    <section class="feature-row">
+      <article>
+        <ion-icon [icon]="rocketIcon"></ion-icon>
+        <h3>Fast delivery</h3>
+        <p>Express options available in major cities with real-time updates.</p>
+      </article>
+      <article>
+        <ion-icon [icon]="shieldIcon"></ion-icon>
+        <h3>Secure checkout</h3>
+        <p>Protected payments and transparent return policies every time.</p>
+      </article>
+      <article>
+        <ion-icon [icon]="leafIcon"></ion-icon>
+        <h3>Eco-aware picks</h3>
+        <p>Find sustainable products and low-impact packaging choices.</p>
+      </article>
+      <article>
+        <ion-icon [icon]="flashIcon"></ion-icon>
+        <h3>Flash drops</h3>
+        <p>Daily time-limited offers on top categories and best sellers.</p>
+      </article>
+    </section>
+
+    <section class="category-grid">
+      <article>
+        <p>01</p>
+        <h4>Fashion</h4>
+        <span>Everyday wear to signature looks</span>
+      </article>
+      <article>
+        <p>02</p>
+        <h4>Electronics</h4>
+        <span>Performance gear for work and play</span>
+      </article>
+      <article>
+        <p>03</p>
+        <h4>Home living</h4>
+        <span>Design-first essentials for your space</span>
+      </article>
+    </section>
+  </main>
 </ion-content>
